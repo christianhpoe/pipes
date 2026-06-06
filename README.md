@@ -2,6 +2,7 @@
   <img src="icon.png" alt="Pipes" width="160" height="160">
   <h1>3D Pipes</h1>
   <p>The Windows 95/XP <em>3D Pipes</em> screensaver, rebuilt in the browser with WebGL.</p>
+  <p><strong>▶ <a href="https://christianhpoe.github.io/pipes/">Live demo</a></strong></p>
 </div>
 
 Pipes grow cell-by-cell through a 3D grid, turning at right angles, sprouting glossy
