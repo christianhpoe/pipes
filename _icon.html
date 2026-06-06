@@ -1,0 +1,36 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#000}</style></head>
+<body>
+<canvas id="c" width="1024" height="1024"></canvas>
+<script>
+// Draws the icon BODY full-bleed (1024). PIL then cuts the squircle + adds shadow.
+const ctx = document.getElementById('c').getContext('2d');
+const hsl = (h,s,l)=>`hsl(${h*360} ${s}% ${l}%)`;
+
+// background gradient to the edges
+const bg = ctx.createLinearGradient(0,0,0,1024);
+bg.addColorStop(0,'#13151f'); bg.addColorStop(1,'#05060a');
+ctx.fillStyle = bg; ctx.fillRect(0,0,1024,1024);
+// soft top gloss
+const gloss = ctx.createLinearGradient(0,0,0,512);
+gloss.addColorStop(0,'rgba(255,255,255,0.10)'); gloss.addColorStop(1,'rgba(255,255,255,0)');
+ctx.fillStyle = gloss; ctx.fillRect(0,0,1024,512);
+
+// pipes, scaled inward so balls stay clear of the rounded corners
+ctx.translate(512,512); ctx.scale(0.82,0.82); ctx.translate(-512,-512);
+function drawPipe(pts, hue){
+  ctx.lineCap='round'; ctx.lineJoin='round';
+  ctx.beginPath(); ctx.moveTo(pts[0][0],pts[0][1]);
+  for(let i=1;i<pts.length;i++) ctx.lineTo(pts[i][0],pts[i][1]);
+  for(const [w,l] of [[120,28],[92,48],[46,64],[16,82]]){ ctx.lineWidth=w; ctx.strokeStyle=hsl(hue,90,l); ctx.stroke(); }
+  for(const [x,y] of pts){
+    const r=74;
+    const g=ctx.createRadialGradient(x-r*0.32,y-r*0.32,r*0.08,x,y,r);
+    g.addColorStop(0,hsl(hue,90,92)); g.addColorStop(0.32,hsl(hue,90,62)); g.addColorStop(1,hsl(hue,85,30));
+    ctx.beginPath(); ctx.arc(x,y,r,0,7); ctx.fillStyle=g; ctx.fill();
+    ctx.beginPath(); ctx.arc(x-r*0.34,y-r*0.34,r*0.16,0,7); ctx.fillStyle='rgba(255,255,255,0.55)'; ctx.fill();
+  }
+}
+drawPipe([[250,560],[660,560],[660,800]], 0.06);
+drawPipe([[300,810],[300,420],[560,420],[560,300],[800,300]], 0.58);
+</script>
+</body></html>

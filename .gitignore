@@ -1,0 +1,5 @@
+# macOS
+.DS_Store
+
+# gstack local tooling state (never publish)
+.gstack/
