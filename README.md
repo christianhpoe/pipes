@@ -65,18 +65,18 @@ you want a different look.
 
 ## Run it fullscreen on macOS
 
-You can wrap it in a tiny `.app` that opens fullscreen like a real screensaver. Make a
-bundle whose executable launches Chrome in kiosk mode against this file:
+Run the installer. It builds `Pipes.app` into `~/Applications`, generates the icon from
+`icon.png`, and registers it with Spotlight/Launchpad:
 
 ```bash
-exec "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
-  --user-data-dir="$HOME/.pipes-kiosk" \
-  --allow-file-access-from-files \
-  --kiosk --app="file:///path/to/index.html"
+./install-macos.sh
 ```
 
-Drop that in `Pipes.app/Contents/MacOS/Pipes`, add a minimal `Info.plist`, and it shows
-up in Spotlight/Launchpad. ⌘-Q quits.
+Then launch **Pipes** from Spotlight (⌘-Space → "Pipes"), Launchpad, or drag it to your
+Dock. It opens fullscreen — Chrome kiosk if Chrome is installed (loads the local files
+offline), otherwise your default browser via a small local server. ⌘-Q quits.
+
+Re-run the installer any time to rebuild. Uninstall with `rm -rf ~/Applications/Pipes.app`.
 
 ## Credits
 
